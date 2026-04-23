@@ -242,3 +242,141 @@ git commit
 ```
 
 > Nota: Los commits deben escribirse en inglés.
+
+## Clase 3 - GitHub y SSH
+
+### ¿Qué es GitHub?
+
+GitHub es una plataforma en la nube y red social para 
+desarrolladores que permite alojar, gestionar y colaborar 
+en proyectos de software usando Git. Es importante no 
+confundirlos: Git es el sistema que crea los puntos de 
+guardado de manera local, mientras que GitHub es el 
+servidor donde esos puntos se almacenan y comparten con 
+el mundo. GitHub usa Git, pero no son lo mismo.
+
+---
+
+### SSH vs HTTPS
+
+Para conectarse a GitHub existen dos métodos:
+
+**HTTPS**: cada vez que quieras subir cambios te va a pedir 
+usuario y contraseña, y en muchos casos ni siquiera te 
+deja hacerlo. Es molesto e ineficiente.
+
+**SSH**: configuras una llave en tu PC que GitHub reconoce 
+automáticamente, sin pedirte credenciales cada vez.
+
+> Por lo tanto, siempre usa SSH.
+
+---
+
+### Configuración de SSH
+
+En tu terminal (Linux) o Git Bash (Windows) ejecuta:
+
+```bash
+# 1. Generar la llave SSH
+ssh-keygen -t ed25519 -C "tu-correo@email.com"
+
+# 2. Ver el contenido de tu llave pública
+cat ~/.ssh/id_ed25519.pub
+```
+
+Luego copias ese contenido y vas a GitHub:
+`Perfil → Settings → SSH and GPG Keys → New SSH Key`
+
+Pegas tu llave, le pones un nombre para identificar tu PC 
+y click en "Add SSH Key".
+
+Para verificar que funcionó:
+```bash
+ssh -T git@github.com
+# Debe aparecer: "Hi <tu-usuario>! You've successfully authenticated"
+```
+
+---
+
+### Crear un repositorio en GitHub
+
+1. Ir a tu apartado de repositorios en GitHub y click en 
+   "New"
+2. Poner el nombre del repositorio y una descripción 
+   opcional
+3. Elegir visibilidad: Public (cualquiera lo ve) o 
+   Private (solo tú y quien invites)
+4. Click en "Create Repository"
+
+> Nota: no uses tu correo institucional para crear la 
+> cuenta, porque al terminar la carrera pierdes acceso y 
+> con ello todos tus proyectos.
+
+---
+
+### Conectar tu repositorio local con GitHub
+
+Una vez creado el repositorio en GitHub, desde tu terminal:
+
+```bash
+# Conectar el repo local al remoto
+git remote add origin git@github.com:TuUser/TuRepo.git
+
+# Renombrar la rama principal a main (si aún dice master)
+git branch -M main
+
+# Subir todo al repositorio remoto por primera vez
+git push -u origin main
+```
+
+`origin` es simplemente el apodo que Git le da por defecto 
+a la URL de tu repositorio remoto.
+
+> Requisito: ya debes tener `git init` hecho y al menos 
+> un commit antes de hacer esto.
+
+---
+
+### Clonar un repositorio
+
+Para descargar un repositorio en otra computadora o en 
+una nueva carpeta:
+
+```bash
+git clone "git@github.com:TuUser/TuRepo.git"
+```
+
+Si por accidente lo clonaste con HTTPS, puedes cambiar 
+el puntero con:
+```bash
+git remote set-url origin "git@github.com:TuUser/TuRepo.git"
+```
+
+Para ver a qué repositorio remoto está conectado tu repo:
+```bash
+git remote -v
+```
+
+---
+
+### Subir y bajar cambios
+
+Subir tus commits a GitHub:
+```bash
+git push origin <rama>
+```
+
+Traer los cambios del repositorio remoto a tu máquina:
+```bash
+git pull origin <rama>
+```
+
+---
+
+### Extra: Perfil de GitHub como portafolio
+
+Si creas un repositorio con exactamente el mismo nombre 
+que tu usuario de GitHub, ese README aparece en tu perfil 
+público. Es una forma sencilla de tener un mini portafolio 
+visible para cualquier persona o empresa que visite tu 
+cuenta.
