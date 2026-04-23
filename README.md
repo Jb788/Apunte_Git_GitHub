@@ -1,10 +1,10 @@
-# Primera clase
 # Trabajo Individual - Curso GIT SCESI 2026
 
 ## Jose Brayan Cruz Muruchi
 
 ---
 
+# Primera clase
 ## Clase 1 - Introducción a GIT
 
 ### ¿Qué es GIT?
@@ -102,3 +102,143 @@ Párrafo normal así nomás.
 código aquí
 # fin bloque
 ```
+
+# Clase 2 - States y Commits
+
+### Los 3 estados de GIT
+
+GIT maneja cada archivo en tres estados distintos:
+
+**1. Directorio de Trabajo (Modificado)**
+Es tu carpeta local donde escribes tu código. GIT observa 
+lo que haces y cataloga los archivos en dos tipos:
+- **Untracked**: archivo nuevo que GIT nunca ha visto antes
+- **Modified**: archivo que GIT ya tenía guardado y que fue 
+  modificado, eliminado o renombrado
+
+Cualquier archivo que NO esté en el `.gitignore` pasa 
+automáticamente a uno de estos estados.
+
+**2. Stage Area (Preparado)**
+Es el área de espera. Aquí le dices a GIT exactamente qué 
+archivos quieres incluir en el próximo punto de guardado.
+
+**3. Repositorio Local (Confirmado)**
+Es el historial. Tus cambios ya tienen un ID (hash) y son 
+parte permanente de la historia del proyecto.
+
+Una buena manera de visualizarlo: el Directorio de Trabajo 
+es el supermercado, el Stage Area es el carrito de compras 
+y el Repositorio Local es la caja registradora donde se 
+confirma todo.
+
+---
+
+### Comandos del Directorio de Trabajo
+
+Ver el estado de todos los archivos:
+```bash
+git status
+```
+
+Descartar cambios de un archivo (cuidado: borra físicamente 
+lo escrito):
+```bash
+git restore <archivo>
+```
+
+Para ignorar archivos sensibles (credenciales, variables de 
+entorno, etc.), se agrega su nombre al `.gitignore`:
+
+.env
+*.pyc
+carpeta/
+
+---
+
+### Comandos del Stage Area
+
+Agregar un archivo específico:
+```bash
+git add <archivo>
+```
+
+Agregar todos los archivos modificados:
+```bash
+git add .
+```
+
+Sacar un archivo del stage (vuelve a Modified sin perder 
+el contenido):
+```bash
+git restore --staged <archivo>
+```
+
+---
+
+### Repositorio Local - Commits
+
+Crear un punto de guardado con todos los archivos en stage:
+```bash
+git commit -m "mensaje descriptivo"
+```
+
+Ver el historial de commits:
+```bash
+git log
+git log --oneline
+```
+
+Deshacer el último commit (los archivos vuelven a stage):
+```bash
+git reset --soft HEAD~1
+```
+
+Modificar el mensaje del último commit:
+```bash
+git commit --amend
+```
+
+---
+
+### Buenas Prácticas para Commits
+
+**1. Commits atómicos**: cada commit debe representar un 
+único cambio lógico y pequeño. Si hiciste dos cosas, 
+haz dos commits separados.
+
+**2. Verbos imperativos**: Add, Change, Fix, Remove, etc.
+
+**3. Sin punto final ni puntos suspensivos** en el mensaje.
+
+**4. Máximo 50 caracteres** en el título del commit.
+
+**5. Usa prefijos** para hacer los commits más descriptivos:
+
+| Prefijo | Cuándo usarlo |
+|---------|--------------|
+| `feat` | Nueva característica |
+| `fix` | Corrección de bug |
+| `docs` | Cambios en documentación (README) |
+| `style` | Cambios de formato |
+| `refactor` | Refactorización de código |
+| `perf` | Mejoras de rendimiento |
+| `build` | Cambios en el sistema de build |
+| `ci` | Integración continua |
+| `test` | Tests |
+
+Ejemplos:
+```bash
+git commit -m "feat: Add sum function in script.js"
+git commit -m "docs: Add fruit list to README"
+git commit -m "fix: Fix login validation bug"
+```
+
+**6. Cuerpo del commit** cuando necesitas más contexto:
+```bash
+git commit
+# Primera línea: título (máx 50 caracteres)
+# Segunda línea en adelante: descripción detallada
+```
+
+> Nota: Los commits deben escribirse en inglés.
