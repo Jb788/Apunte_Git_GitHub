@@ -380,3 +380,7 @@ que tu usuario de GitHub, ese README aparece en tu perfil
 público. Es una forma sencilla de tener un mini portafolio 
 visible para cualquier persona o empresa que visite tu 
 cuenta.
+
+## Evidencia - Notion
+
+![Notion Git-GitHub](images/notion.png)
