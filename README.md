@@ -384,3 +384,155 @@ cuenta.
 ## Evidencia - Notion
 
 ![Notion Git-GitHub](images/notion.png)
+
+## Clase 4 - Git Remote, SSH Múltiple y Git Checkout
+
+### Git Remote
+
+`git remote` es el comando que gestiona las conexiones con
+repositorios remotos. Le dice a Git a qué dirección debe
+enviar o traer información. Funciona como un arquero
+apuntando a un objetivo, donde la URL es el objetivo y
+el apodo (alias) es una forma corta de llamar a esa URL.
+
+Comandos principales:
+
+```bash
+# Ver las URLs a las que apunta tu repositorio
+git remote -v
+
+# Cambiar o actualizar la URL del repositorio remoto
+git remote set-url origin "git@github.com:TuUser/TuRepo.git"
+```
+
+Cuando hacemos `git push origin main`, "origin" es el
+apodo que reemplaza a la URL completa del repositorio.
+`set-url` no solo sirve para cambiar de HTTPS a SSH,
+también sirve para apuntar a un repositorio completamente
+distinto.
+
+---
+
+### SSH con Múltiples Cuentas de GitHub
+
+Cuando tienes más de una cuenta de GitHub (por ejemplo,
+una personal y una de trabajo), cada cuenta necesita su
+propia llave SSH. Es como tener puertas con cerrojos
+distintos, cada una con su propia llave.
+
+**Pasos para configurar múltiples llaves SSH:**
+
+```bash
+# 1. Generar una llave nueva con un nombre distinto
+#    El flag -f indica dónde y con qué nombre guardarla
+ssh-keygen -t ed25519 -C "tu-correo@email.com" -f ~/.ssh/id_auxi
+
+# 2. Ver las llaves generadas
+ls -a ~/.ssh/
+```
+
+Luego copias la llave pública y la agregas a tu cuenta
+de GitHub en Settings → SSH and GPG Keys.
+
+**Crear el archivo config** (solo necesario cuando tienes
+más de una cuenta):
+
+```bash
+touch ~/.ssh/config
+```
+
+Dentro del archivo `config` pones algo así:
+Cuenta principal
+Host github.com
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_ed25519
+Cuenta secundaria
+Host github-auxi
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_auxi
+El `Host` es el alias de la conexión. El `HostName` es
+el servidor real (siempre github.com). El `IdentityFile`
+es la ruta a la llave que debe usar.
+
+Para probar la conexión de la cuenta secundaria:
+```bash
+ssh -T git@github-auxi
+```
+
+Al clonar con la cuenta secundaria, usas el alias en lugar
+de github.com:
+```bash
+git clone git@github-auxi:TuUser/TuRepo.git
+```
+
+---
+
+### Configuraciones Globales vs Locales
+
+Las configuraciones tienen una jerarquía: local > global.
+La configuración local de un repositorio siempre gana
+sobre la global.
+
+```bash
+# Configuración global (aplica a todos los repos)
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@correo.com"
+
+# Configuración local (solo aplica al repo actual)
+git config user.name "Otro Nombre"
+git config user.email "otro@correo.com"
+
+# Ver todas las configuraciones activas
+git config --global --list
+```
+
+Esto es importante cuando trabajas con cuentas distintas,
+porque si no cambias la configuración local tus commits
+van a aparecer con el usuario equivocado.
+
+---
+
+### Git Checkout
+
+`git checkout` permite desplazarse hacia commits anteriores
+para ver cómo estaba el código en ese momento. Es como
+viajar al pasado como espectador.
+
+```bash
+# Ver el historial resumido de commits
+git log --oneline
+
+# Ir a un commit pasado (usar los primeros 7 caracteres del hash)
+git checkout abc1234
+
+# Volver a la rama principal
+git checkout main
+```
+
+Cuando estás en un commit pasado, te encuentras en un
+estado llamado **detached HEAD**, lo que significa que no
+estás en ninguna rama, estás parado en un punto de
+guardado específico.
+
+Para qué sirve el checkout:
+- Ver cómo estaba el código antes de un cambio
+- Recuperar archivos que fueron borrados
+- Explorar el historial de un proyecto
+
+> Importante: no puedes hacer checkout si tienes cambios
+> sin commitear. Git te va a pedir que primero guardes o
+> descartes tus cambios.
+
+> Recomendación: úsalo solo para observar el pasado,
+> no para trabajar desde ahí. Si necesitas algo de un
+> commit pasado, tómalo y vuelve a tu rama principal
+> para trabajar.
+
+Si por alguna razón hiciste cambios en detached HEAD y
+los quieres conservar, puedes crear una rama desde ahí:
+
+```bash
+git checkout -b nombre-rama-experimental
+```
