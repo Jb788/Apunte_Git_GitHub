@@ -536,3 +536,267 @@ los quieres conservar, puedes crear una rama desde ahí:
 ```bash
 git checkout -b nombre-rama-experimental
 ```
+
+# 📚 Clase 5: Ramas y Gitflow Básico
+
+## 🌿 ¿Qué son las ramas?
+
+Las ramas (branches) en Git son una herramienta fundamental que permite trabajar con diferentes versiones del código de forma paralela.
+
+Una rama es básicamente una **bifurcación del estado del proyecto**, lo que significa que puedes crear una copia del código actual y trabajar sobre ella sin afectar la rama principal.
+
+### 📌 ¿Para qué sirven?
+
+* Evitar romper el código principal
+* Trabajar en nuevas funcionalidades
+* Facilitar el trabajo en equipo
+* Probar cambios sin riesgo
+
+---
+
+## ⚙️ Comandos básicos de ramas
+
+### 🔹 Listar ramas
+
+```bash
+git branch
+```
+
+Muestra todas las ramas disponibles y en cuál estás actualmente.
+
+---
+
+### 🔹 Crear una rama
+
+```bash
+git branch <nombre-rama>
+```
+
+Crea una nueva rama basada en la rama actual.
+
+---
+
+### 🔹 Eliminar una rama
+
+```bash
+git branch -D <nombre-rama>
+```
+
+Elimina una rama.
+
+---
+
+## 🔄 Navegar entre ramas
+
+### 🔹 Cambiar de rama
+
+```bash
+git checkout <rama>
+```
+
+Permite moverse entre ramas.
+
+⚠️ Importante:
+No debes tener cambios sin guardar (modified, staged o untracked).
+
+---
+
+### 🔹 Crear y cambiar a una rama
+
+```bash
+git checkout -b <rama>
+```
+
+Crea una nueva rama y automáticamente te mueve a ella.
+
+---
+
+## 🔁 Git Checkout vs Git Switch
+
+### 🔹 git checkout
+
+* Es un comando multipropósito
+* Sirve para:
+
+  * Cambiar ramas
+  * Volver a commits antiguos
+  * Restaurar archivos
+* Puede causar errores como *detached HEAD*
+
+---
+
+### 🔹 git switch
+
+* Es un comando más moderno (desde Git 2.23)
+* Solo sirve para manejar ramas
+* Es más seguro y fácil de usar
+
+### 📌 Ejemplos:
+
+```bash
+git switch <rama>
+git switch -c <rama>
+```
+
+---
+
+## 🧠 Concepto clave: HEAD
+
+HEAD es el puntero que indica en qué rama estás trabajando actualmente.
+
+Ejemplo:
+
+* Si estás en `main`, HEAD apunta a `main`
+* Si cambias de rama, HEAD cambia automáticamente
+
+---
+
+## ⚠️ Importante al cambiar de rama
+
+Si tienes cambios sin guardar, Git puede impedir que cambies de rama.
+
+Esto ocurre porque podrías perder cambios.
+
+👉 Soluciones:
+
+* Hacer commit
+* Usar `git stash` (se verá más adelante)
+
+---
+
+## 🚀 ¿Qué es Gitflow?
+
+Gitflow es un **flujo de trabajo** que define reglas para usar ramas de forma organizada.
+
+Permite:
+
+* Mantener orden en el proyecto
+* Facilitar el trabajo en equipo
+* Entender fácilmente el estado del código
+
+---
+
+## 🌳 Estructura de Gitflow
+
+### 🔹 main
+
+* Contiene el código en producción
+* Es la versión estable
+
+---
+
+### 🔹 develop
+
+* Rama de desarrollo principal
+* Aquí se integran las nuevas funcionalidades
+
+---
+
+### 🔹 Ramas de apoyo
+
+Son ramas temporales para tareas específicas:
+
+---
+
+## 🧩 Tipos de ramas en Gitflow
+
+### 🔹 feature/*
+
+* Se crean desde `develop`
+* Se usan para nuevas funcionalidades
+* Se fusionan nuevamente en `develop`
+
+Ejemplos:
+
+```bash
+feature/login
+feature/register-user
+feature/search-bar
+```
+
+---
+
+### 🔹 release/*
+
+* Se crean desde `develop`
+* Se usan para preparar una versión
+* Incluyen pruebas (QA)
+
+Ejemplos:
+
+```bash
+release/v1.0.0
+release/v2.0.0-beta
+```
+
+---
+
+### 🔹 hotfix/*
+
+* Se crean desde `main`
+* Se usan para corregir errores en producción
+
+Ejemplos:
+
+```bash
+hotfix/login-error
+hotfix/security-patch
+hotfix/api-timeout
+```
+
+---
+
+## 📊 Resumen de ramas
+
+| Rama      | Nace de | Muere en       | Propósito                      |
+| --------- | ------- | -------------- | ------------------------------ |
+| main      | —       | —              | Código en producción           |
+| develop   | main    | —              | Desarrollo principal           |
+| feature/* | develop | develop        | Nuevas funcionalidades         |
+| release/* | develop | main y develop | Preparar versiones             |
+| hotfix/*  | main    | main y develop | Corrección de errores urgentes |
+
+---
+
+## 🧠 Idea clave de las ramas
+
+Las ramas permiten trabajar como si hicieras copias del proyecto:
+
+Antes (sin Git):
+
+* Copiar carpetas manualmente
+* Riesgo de desorden
+
+Ahora (con Git):
+
+* Creas ramas
+* Trabajas sin afectar el código principal
+* Puedes eliminar cambios fácilmente
+
+---
+
+## 🤝 Trabajo en equipo con ramas
+
+Cada persona puede trabajar en su propia rama:
+
+* Juan → feature/login
+* Ana → feature/register
+
+Luego:
+
+* Se combinan (merge)
+* Se evita conflictos y desorden
+
+---
+
+## ✅ Conclusión
+
+Las ramas son esenciales en Git porque:
+
+* Permiten trabajar de forma paralela
+* Evitan errores en producción
+* Facilitan el trabajo en equipo
+* Organizan el desarrollo del proyecto
+
+Y con Gitflow:
+👉 Todo el trabajo se vuelve más ordenado y profesional.
