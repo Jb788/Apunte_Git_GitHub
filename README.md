@@ -799,4 +799,232 @@ Las ramas son esenciales en Git porque:
 * Organizan el desarrollo del proyecto
 
 Y con Gitflow:
-👉 Todo el trabajo se vuelve más ordenado y profesional.
+
+
+# 📚 Clase 6: Merge y Trabajo con Repositorios Remotos
+
+## 🔀 ¿Qué es git merge?
+
+El comando `git merge` significa **fusión**.
+
+Permite unir dos ramas en una sola, combinando sus cambios para que ambas compartan los mismos commits.
+
+👉 En otras palabras:
+Sirve para integrar el trabajo de una rama dentro de otra.
+
+---
+
+## ⚙️ Uso de git merge
+
+```bash
+git merge <rama>
+```
+
+Fusiona la rama indicada con la rama actual.
+
+---
+
+## 🧠 Flag importante: --no-ff
+
+```bash
+git merge --no-ff <rama>
+```
+
+### 📌 ¿Qué hace?
+
+* Evita el **fast forward**
+* Obliga a crear un commit de merge
+* Mantiene el historial de ramas visible
+
+👉 Esto es importante porque:
+
+* No se pierde la estructura del trabajo
+* Puedes ver claramente cuándo se hizo una fusión
+
+---
+
+## 🔍 ¿Qué es git fetch?
+
+`git fetch` permite verificar si hay cambios en el repositorio remoto.
+
+### 📌 Características:
+
+* Trae información de cambios
+* **No modifica tu código local**
+* Solo actualiza referencias
+
+👉 Es como decir:
+“Revisa si hay cambios, pero no los descargues todavía”
+
+---
+
+## ⬇️ ¿Qué es git pull?
+
+`git pull` descarga los cambios del repositorio remoto y los aplica en tu rama actual.
+
+```bash
+git pull origin <rama>
+```
+
+### 📌 Características:
+
+* Trae cambios del remoto
+* Los fusiona automáticamente
+* Es equivalente a:
+
+  * `git fetch` + `git merge`
+
+---
+
+## ⬆️ ¿Qué es git push?
+
+`git push` envía tus cambios al repositorio remoto.
+
+```bash
+git push origin <rama>
+```
+
+### 📌 Características:
+
+* Sube commits al repositorio
+* Actualiza la rama remota
+
+---
+
+## ⚠️ Primer push de una rama
+
+Si es la primera vez que subes una rama:
+
+```bash
+git push -u origin <rama>
+```
+
+### 📌 ¿Por qué usar -u?
+
+* Vincula la rama local con la remota
+* Evita tener que escribir `origin <rama>` en el futuro
+
+---
+
+## 🔄 Flujo de trabajo (sin Pull Requests)
+
+Este es un flujo básico para trabajar con ramas:
+
+### 1️⃣ Ir a la rama develop
+
+```bash
+git checkout develop
+```
+
+---
+
+### 2️⃣ Verificar cambios del remoto
+
+```bash
+git fetch
+```
+
+---
+
+### 3️⃣ Actualizar develop
+
+```bash
+git pull origin develop
+```
+
+---
+
+### 4️⃣ Fusionar tu rama
+
+```bash
+git merge --no-ff <rama>
+```
+
+---
+
+### 5️⃣ Resolver conflictos (si existen)
+
+Si hay conflictos:
+
+* Editas manualmente los archivos
+* Corriges los errores
+
+---
+
+### 6️⃣ Guardar cambios
+
+```bash
+git add .
+git commit
+```
+
+---
+
+### 7️⃣ Eliminar la rama
+
+```bash
+git branch -D <rama>
+```
+
+---
+
+### 8️⃣ Subir cambios al remoto
+
+```bash
+git push origin develop
+```
+
+---
+
+## ⚠️ Conflictos en Git
+
+Un conflicto ocurre cuando:
+
+* Dos ramas modifican la misma parte de un archivo
+
+### 📌 Solución:
+
+1. Git marca el conflicto
+2. Editas manualmente el archivo
+3. Guardas cambios con:
+
+```bash
+git add .
+git commit
+```
+
+---
+
+## 🧠 Idea clave
+
+El flujo completo consiste en:
+
+1. Traer cambios del remoto
+2. Integrar tu trabajo
+3. Resolver conflictos
+4. Subir el resultado
+
+---
+
+## 🤝 Trabajo en equipo
+
+Estos comandos permiten:
+
+* Sincronizar cambios entre desarrolladores
+* Evitar pérdida de información
+* Mantener el proyecto actualizado
+
+---
+
+## ✅ Conclusión
+
+En esta clase aprendiste:
+
+* Cómo fusionar ramas con `git merge`
+* Cómo interactuar con repositorios remotos:
+
+  * `git fetch`
+  * `git pull`
+  * `git push`
+* Cómo manejar conflictos
+* Un flujo de trabajo completo sin Pull Requests
