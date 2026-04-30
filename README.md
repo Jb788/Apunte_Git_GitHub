@@ -1016,15 +1016,218 @@ Estos comandos permiten:
 
 ---
 
+# 📚 Clase 7: Pull Requests y Trabajo Colaborativo
+
+## 🔀 ¿Qué es un Pull Request (PR)?
+
+Un **Pull Request (PR)** es una solicitud para fusionar cambios de una rama hacia otra (generalmente hacia `develop` o `main`).
+
+👉 Es la forma **profesional de trabajar con Git y GitHub**.
+
+### 📌 ¿Qué permite?
+
+* Ver los cambios antes de integrarlos
+* Revisar el código en equipo
+* Discutir mejoras o errores
+* Aprobar o rechazar cambios
+
+---
+
+## 🧠 Idea clave
+
+Un PR no fusiona directamente el código.
+👉 Primero crea una **solicitud de revisión** antes de hacer el merge.
+
+---
+
+## ⚙️ ¿Cómo crear un Pull Request?
+
+1. Subir tu rama al repositorio remoto:
+
+```bash id="f3qk2p"
+git push origin <rama>
+```
+
+2. Ir a **GitHub**
+
+3. Crear un Pull Request desde la interfaz web:
+
+* Seleccionas la rama
+* Comparas con `develop` o `main`
+* Agregas descripción
+* Envías la solicitud
+
+---
+
+## 🔄 Flujo de trabajo con Pull Requests
+
+### 1️⃣ Ir a develop
+
+```bash id="l8h3f2"
+git checkout develop
+```
+
+---
+
+### 2️⃣ Verificar cambios del remoto
+
+```bash id="q2k91x"
+git fetch
+```
+
+---
+
+### 3️⃣ Actualizar develop
+
+```bash id="b6v0pl"
+git pull origin develop
+```
+
+---
+
+### 4️⃣ Crear o cambiar a tu rama
+
+```bash id="p1z8we"
+git checkout <rama>
+```
+
+O si no existe:
+
+```bash id="n0y7ds"
+git checkout -b <rama>
+```
+
+---
+
+### 5️⃣ Mantener tu rama actualizada
+
+```bash id="m4c2jr"
+git merge develop
+```
+
+(Solo si hubo cambios en `develop`)
+
+---
+
+### 6️⃣ Trabajar en tu código
+
+Realizas cambios, mejoras o nuevas funcionalidades.
+
+---
+
+### 7️⃣ Subir tu rama
+
+```bash id="u3d9sx"
+git push origin <rama>
+```
+
+👉 Usa `-u` si es la primera vez:
+
+```bash id="z5k7ad"
+git push -u origin <rama>
+```
+
+---
+
+### 8️⃣ Actualizar antes del PR
+
+```bash id="x8q2lo"
+git checkout develop
+git fetch
+git checkout <rama>
+git merge develop
+```
+
+---
+
+### 9️⃣ Resolver conflictos (si existen)
+
+* Editas archivos manualmente
+* Luego:
+
+```bash id="h2c6fw"
+git add .
+git commit
+git push origin <rama>
+```
+
+---
+
+### 🔟 Crear el Pull Request
+
+Desde **GitHub**, creas el PR y esperas revisión.
+
+---
+
+## ⚠️ ¿Por qué usar Pull Requests?
+
+Aunque puedes trabajar sin PRs, no es recomendable en equipos.
+
+### 🚫 Problemas sin PR:
+
+* Cualquiera puede hacer merge directo
+* Riesgo de errores
+* Posible código malicioso
+* Falta de control
+
+---
+
+### ✅ Ventajas de los PR:
+
+* Seguridad en el código
+* Revisión obligatoria (code review)
+* Discusión entre desarrolladores
+* Mejor organización del proyecto
+* Control total sobre qué se integra
+
+👉 Obligan al equipo a **revisar antes de aceptar cambios**
+
+---
+
+## 🔐 Protección del repositorio
+
+Para mejorar la seguridad:
+
+* Se pueden bloquear merges directos a `main` o `develop`
+* Se requiere aprobación antes de fusionar
+* Se limita quién puede hacer cambios
+
+👉 Esto se configura en **GitHub**
+
+---
+
+## 🤝 Colaboración sin acceso directo
+
+Una persona puede contribuir sin ser colaborador directo.
+
+### 📌 ¿Cómo?
+
+* Hace un fork del repositorio
+* Trabaja en su copia
+* Envía un Pull Request al repositorio original
+
+👉 Esto permite contribuciones externas sin dar acceso completo
+
+---
+
+## 🧠 Idea general del flujo
+
+1. Creas tu rama
+2. Trabajas en ella
+3. Subes cambios
+4. Creas un Pull Request
+5. El equipo revisa
+6. Se aprueba o rechaza
+7. Se hace merge
+
+---
+
 ## ✅ Conclusión
 
-En esta clase aprendiste:
+Los Pull Requests son esenciales porque:
 
-* Cómo fusionar ramas con `git merge`
-* Cómo interactuar con repositorios remotos:
+* Mejoran la calidad del código
+* Aumentan la seguridad
+* Permiten trabajo colaborativo real
+* Evitan errores en producción
 
-  * `git fetch`
-  * `git pull`
-  * `git push`
-* Cómo manejar conflictos
-* Un flujo de trabajo completo sin Pull Requests
