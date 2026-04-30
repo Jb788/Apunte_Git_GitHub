@@ -1015,7 +1015,6 @@ Estos comandos permiten:
 * Mantener el proyecto actualizado
 
 ---
-
 # 📚 Clase 7: Pull Requests y Trabajo Colaborativo
 
 ## 🔀 ¿Qué es un Pull Request (PR)?
@@ -1230,4 +1229,3 @@ Los Pull Requests son esenciales porque:
 * Aumentan la seguridad
 * Permiten trabajo colaborativo real
 * Evitan errores en producción
-
