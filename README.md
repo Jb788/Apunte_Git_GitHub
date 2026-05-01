@@ -1229,3 +1229,208 @@ Los Pull Requests son esenciales porque:
 * Aumentan la seguridad
 * Permiten trabajo colaborativo real
 * Evitan errores en producción
+# 📚 Clase 8: Git Rebase
+
+## 🔄 ¿Qué es git rebase?
+
+`git rebase` es una forma de integrar cambios de una rama en otra, **reescribiendo el historial de commits**.
+
+👉 A diferencia de `git merge`, no crea un commit de fusión.
+
+---
+
+## 🧠 Idea clave
+
+* **Merge** → Une historias (crea un commit extra)
+* **Rebase** → Reescribe la historia (más limpio)
+
+---
+
+## ⚙️ Uso básico de git rebase
+
+```bash id="rb1a92"
+git rebase <rama>
+```
+
+👉 Aplica los cambios de tu rama sobre la rama indicada.
+
+---
+
+## 📌 Ejemplo
+
+Supongamos:
+
+* `develop` tiene nuevos cambios
+* Tú estás en `feature/login`
+
+Para actualizar tu rama:
+
+```bash id="rb2k41"
+git checkout feature/login
+git rebase develop
+```
+
+👉 Resultado:
+
+* Tu rama se “mueve” como si hubiera sido creada desde el último commit de `develop`
+
+---
+
+## 🔍 ¿Qué hace realmente rebase?
+
+1. Toma tus commits
+2. Los “quita” temporalmente
+3. Actualiza la base (develop)
+4. Vuelve a aplicar tus commits encima
+
+👉 Esto genera un historial lineal.
+
+---
+
+## 📊 Merge vs Rebase
+
+| Característica  | Merge      | Rebase                |
+| --------------- | ---------- | --------------------- |
+| Historial       | No lineal  | Lineal                |
+| Commit extra    | Sí         | No                    |
+| Facilidad       | Más simple | Más complejo          |
+| Uso recomendado | General    | Limpieza de historial |
+
+---
+
+## ⚠️ Conflictos en rebase
+
+Durante un rebase pueden ocurrir conflictos.
+
+### 📌 ¿Qué hacer?
+
+1. Git detecta conflicto
+2. Editas el archivo manualmente
+3. Continúas:
+
+```bash id="rb3z77"
+git add .
+git rebase --continue
+```
+
+---
+
+### ❌ Cancelar rebase
+
+```bash id="rb4x55"
+git rebase --abort
+```
+
+👉 Vuelve al estado anterior.
+
+---
+
+## 🚫 Regla importante
+
+❗ **No hacer rebase en ramas públicas**
+
+👉 Es peligroso porque:
+
+* Reescribe el historial
+* Puede causar conflictos a otros desarrolladores
+
+---
+
+## 🔄 Rebase interactivo
+
+Permite modificar commits:
+
+```bash id="rb5m88"
+git rebase -i HEAD~n
+```
+
+### 📌 Sirve para:
+
+* Editar commits
+* Eliminar commits
+* Combinar commits (squash)
+
+---
+
+## 🧩 Opciones en rebase interactivo
+
+* `pick` → mantener commit
+* `reword` → cambiar mensaje
+* `squash` → combinar commits
+* `drop` → eliminar commit
+
+---
+
+## 🧠 ¿Cuándo usar rebase?
+
+✔️ Cuando quieres:
+
+* Un historial limpio
+* Evitar commits innecesarios
+* Preparar código antes de un PR
+
+❌ Evitar cuando:
+
+* Trabajas en equipo sobre la misma rama
+* La rama ya está publicada
+
+---
+
+## 🔁 Flujo recomendado con rebase
+
+1️⃣ Ir a tu rama
+
+```bash id="rb6p11"
+git checkout feature/login
+```
+
+2️⃣ Actualizar develop
+
+```bash id="rb7t22"
+git checkout develop
+git pull origin develop
+```
+
+3️⃣ Volver a tu rama
+
+```bash id="rb8y33"
+git checkout feature/login
+```
+
+4️⃣ Hacer rebase
+
+```bash id="rb9u44"
+git rebase develop
+```
+
+---
+
+## ⚠️ Después del rebase
+
+Debes forzar el push:
+
+```bash id="rb10q66"
+git push --force
+```
+
+👉 Porque cambió el historial.
+
+---
+
+## 🤝 Rebase en equipos
+
+* Usar con cuidado
+* Preferir en ramas personales (`feature/*`)
+* Evitar en `main` o `develop`
+
+---
+
+## ✅ Conclusión
+
+`git rebase` es una herramienta poderosa que:
+
+* Mantiene el historial limpio
+* Evita commits innecesarios
+* Hace el proyecto más ordenado
+
+👉 Pero debe usarse con responsabilidad, especialmente en trabajo en equipo.
