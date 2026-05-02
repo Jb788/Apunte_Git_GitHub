@@ -1434,3 +1434,9 @@ git push --force
 * Hace el proyecto más ordenado
 
 👉 Pero debe usarse con responsabilidad, especialmente en trabajo en equipo.
+
+# 📌 Perfil de GitHub
+
+Puedes ver mi perfil en el siguiente enlace:
+
+🔗 [Ir a mi GitHub](https://github.com/Jb788)
